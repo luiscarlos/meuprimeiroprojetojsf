@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Cadastro de usuários</title>
+</head>
+<h:body>
+	<h:graphicImage height="80" width="80"
+		value="/resources/img/duratex.png" />
+	<!-- <h:graphicImage height="80" width="80" library="img"  nome="images.png"/> -->
+
+	<h1>Cadastrar Pessoa</h1>
+
+	<h:form id="formaPesoa">
+		<h:panelGrid columns="2">
+
+			<f:facet name="header">
+				<h:outputLabel value="Lista de usuários cadastrados" />
+			</f:facet>
+
+			<h:outputLabel id="id" value="Id:" />
+			<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
+			
+
+			<h:outputLabel id="nome" value="Nome:" />
+			<h:inputText value="#{pessoaBean.pessoa.nome}" />
+
+			<h:outputLabel id="sobrenome" value="Sobrenome: " />
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+
+			<h:outputLabel id="idade" value="idade: " />
+			<h:inputText value="#{pessoaBean.pessoa.idade}" />
+
+			<h:outputLabel id="sexo" value="Sexo" />
+			<h:selectOneMenu id="campoMenu" value="#{pessoaBean.pessoa.sexo}" 
+				required="false">
+				<f:selectItem itemValue="NAO" itemLabel="[-SELECIONE-]"
+					noSelectionOption="true" />
+				<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
+				<f:selectItem itemValue="FEMININO" itemLabel="Feminino" />
+			</h:selectOneMenu>
+			
+			<h:outputLabel id="campoAtivo" value="Ativo" />
+			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}">
+			</h:selectBooleanCheckbox>
+
+			<h:outputLabel id="frameworks" value="Frameworks:" />
+			<h:selectManyMenu id="campoFrameworks" style="height:100px" value="#{pessoaBean.pessoa.frameworks}">
+				<f:selectItem itemValue="Hibernate" />
+				<f:selectItem itemValue="Spring MVC" />
+				<f:selectItem itemValue="JPA" />
+				<f:selectItem itemValue="Prime faces" />
+				<f:selectItem itemValue="JSF" />
+			</h:selectManyMenu>
+			
+			
+			<h:outputLabel id="login" value="login:" />
+			<h:inputText value="#{pessoaBean.pessoa.login}" />
+			
+			<h:outputLabel id="Senha" value="Senha:" />
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+			
+			<h:outputLabel id="perfil" value="Perfil" />
+			<h:selectOneMenu id="perfilUsuario" value="#{pessoaBean.pessoa.perfilUser}" 
+				required="false">
+				<f:selectItem itemValue="NAO" itemLabel="[-SELECIONE-]"
+					noSelectionOption="true" />
+				<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
+				<f:selectItem itemValue="SECRETARIO" itemLabel="Secretário" />
+				<f:selectItem itemValue="RECEPICIONISTA" itemLabel="Recepicionista" />
+			</h:selectOneMenu>
+			
+		</h:panelGrid>
+		
+			
+			
+		<h:panelGrid columns="4">
+			<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/novo.png" title="Novo" />
+			<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"  />
+			<h:commandButton value="Remover" action="#{pessoaBean.remove}" />
+			<h:commandButton value="Limpar" type="reset" />
+		</h:panelGrid>
+
+
+
+
+
+
+		<h:dataTable value="#{pessoaBean.listaPessoa}" var="pessoas"
+			border="05">
+
+			<f:facet name="header">
+				<h:outputLabel value="Lista de usuários cadastrados" />
+			</f:facet>
+
+
+			<!--<h:column><h:outputText value="#{pessoas.id}"/></h:column>-->
+			<h:column headerText="id">
+				<f:facet name="header">
+					<h:outputLabel value="ID" />
+				</f:facet>
+				#{pessoas.id}
+			</h:column>
+
+
+			<h:column headerText="nome">
+				<f:facet name="header">
+					<h:outputLabel value="Nome" />
+				</f:facet>
+				#{pessoas.nome}
+			</h:column>
+			<h:column headerText="sobrenome">
+				<f:facet name="header">
+					<h:outputLabel value="Sobrenome" />
+				</f:facet>
+				#{pessoas.sobrenome}
+			</h:column>
+			<h:column headerText="idade">
+				<f:facet name="header">
+					<h:outputLabel value="Idade" />
+				</f:facet>
+				#{pessoas.idade}
+			</h:column>
+
+			<h:column headerText="sexi">
+				<f:facet name="header">
+					<h:outputLabel value="Sexo" />
+				</f:facet>
+				#{pessoas.sexo}
+			</h:column>
+			<h:column>
+				<h:commandLink title="Editar" value="Editar">
+					<f:setPropertyActionListener target="#{pessoaBean.pessoa}"
+						value="#{pessoas}" />
+						<h:graphicImage value="/resources/img/editar.png"/>
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<h:commandLink title="Excluir" action="#{pessoaBean.remove}">
+					<f:setPropertyActionListener target="#{pessoaBean.pessoa}"
+						value="#{pessoas}" />
+					<h:graphicImage value="/resources/img/remover.png"/>
+				</h:commandLink>
+			</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+</h:body>
+</html>
